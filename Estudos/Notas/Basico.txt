@@ -1,0 +1,48 @@
+<===== MÉTODO A SEGUIR PARA O DESENVOLVIMENTO DO OpenGL =====>
+    No conteúdo básico:
+    1 - É necessário inicialmente criar o contexto (GLFWwindow *window e por ae vai) para criar a janela
+    2 - Definir a biblioteca que traz o OpenGL moderno.
+    3 - Definir o buffer que está sendo trabalhado e como ele está estruturado.
+
+<===== BUFFER DE VERTICES =====>
+    Buffer refere-se a justamente um amontoado de dados, e no caso do OpenGL é um amontoado de dados que
+refere-se a um determinado conceito, o buffer inicial e utilizado é o vertex buffer.
+
+    Um vertice no OpenGL é basicamente é um conjunto de dados que definem um ponto, sendo um deles
+as coordenadas daquele ponto, outro poderia ser a cor e existem diversas outras características que
+definem um vértice.
+
+    Vértices geralmente são definidos como GLuint, ou, unsigned int, que basicamente irá armazenar a assinatura
+do vértice, no geral todo buffer é definido como GLuint, pois basicamente ele guarda um endereço criado pelo
+OpenGL.
+
+    Código exemplo:
+        GLuint vertex_buffer; // Criando a assinatura do buffer
+        glGenBuffers(1, &vertex_buffer); // Atribuindo a característica de buffer ao que foi definido
+        glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer); // Selecionando o buffer para manipulação
+        glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW); // Inserindo dados no Buffer
+
+        *Em glBufferData eu utilizei algo chamado points, basicamente é uma variável que deverá ser previamente
+criada que estão os dados dos vértices, nesse caso apresentado são apenas os pontos, ou seja, coordenadas.
+        O tipo utilizado para points é GL_FLOAT, ou simplesmente float.
+
+    Portanto para que ocorra o uso de um Vertex Buffer os seguintes passos devem ser efetuados:
+        1 - Definir a variável que irá armazenar a assinatura como buffer.
+        2 - Tornar a variável buffer de fato buffer.
+        3 - Selecionar o buffer para uso.
+        4 - Inserir dentro do buffer criado os dados.
+        5 - Definir como os dados estão estruturados (apresentado abaixo)
+
+    Por último deve-se ser estabelecido como os dados estão estruturados para que seja possível distinguir 
+quais dados se referem a um vértice, seu tamanho, quantos são e por ai vai, logo o seguinte comando deverá
+ser definido:
+        glVertexAttribPointer(
+            numeração_do_buffer_criado, 
+            quantos_dados_um_vertice_possui, 
+            tipo_dos_dados, 
+            deverá_ser_normalizado,
+            quantos_bytes_são_pulados_até_o_próximo_vértice,
+            de_que_byte_começa_o_primeiro_elemento
+        );
+
+        glEnableVertexAttribArray(numeração_do_buffer_criado); // Habilitando o buffer para uso

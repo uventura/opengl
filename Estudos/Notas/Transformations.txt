@@ -1,0 +1,46 @@
+    Uma das características mais pertinente quanto a computação gráfica é a sua
+capacidade de poder representar o espaço tanto 2D quanto 3D em uma tela, sendo
+que transformações são necessárias para que ocorra qualquer movimentação. Em 
+3-Camera criei alguns exemplos em que ocorrem transformações espaciais sendo elas
+de translação, rotação e aumento, para que isso ocorra é necessário ou criar funções
+que permitam este uso ou utilizar bibliotecas que já nos provê delas. Desta forma
+foi utilizado a bibilioteca GLM(OpenGL Mathematics), para incluí-la basta usar:
+
+    #include <glm/glm.hpp> // Fornece as características sobre as funções glm
+    #include <glm/gtc/matrix_transformations.hpp> // Fornece funções de transformação
+    #include <glm/gtc/type_ptr.hpp> // Fornece Funções de Casting
+
+    Eu apresentei 3 includes que são fundamentais para que ocorram as transformações,
+sendo a primeira necessária para qualquer caso.
+
+    As coordenadas de vertices de um objeto no opengl são descritas por o tipo vec4, vec3 e etc,
+o que no final das contas simplesmente representa um vetor de dimensão n, sendo n de vecn. para
+que seja realizado uma transformação basta criar a matriz de trasformação primeiro com o glm, exemplo:
+
+    glm::mat4 transformar(1.0f); // Matriz 4x4 de transformação e preenchida com 1.0f
+    transformar = glm::translate(transformar, glm::vec3(1.0f, 1.0f, 1.0f)); // Função de Transladar
+
+    /*
+        Função de Transladar: é apenas a função que irá compor a matriz 4x4 definida. Uma Matriz de
+    transladação é apenas uma matriz que na 4° coluna possuirá os valores que irão movimentar o vetor
+    , para ver como funciona basta olha na página 87 de OpenGL offline.
+        No glm primeiro deve ser informado a matriz 4x4 utilizada e depois os valores que serão
+    iseridos.
+    */
+
+    Para que esta transformação seja aplicada nos pontos do objeto deverá ser definido um uniform
+no vertex shader, sendo:
+        uniform mat4 matriz;
+        void main()
+        {
+            gl_Position = matriz * vec4(coordenadas);
+        }
+
+    e para utilizar os valores da matriz 4 gerada, no código do programa deverá ser estabelecido:
+        int uniform_teste = glGetUniformLocation(shader_name, "uniform_name");
+        glUniformMatrix4fv(uniform_teste, GL_FALSE, value_ptr(transladar));
+
+    Em glUniformMatrix4fv:
+        1° Definir qual uniforme está sendo usado.
+        2° Se a matriz deverá ser transposta.
+        3° Onde a matriz se encontra(para o glm basta realizar um casting).

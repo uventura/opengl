@@ -1,0 +1,13 @@
+Ao utilizar o linux é necessário que seja realizado os seguintes downloads:
+	sudo apt-get install libglew-dev -> Utilizar o OpenGL
+	sudo apt-get install libglfw-dev -> Criar Janelas
+	sudo apt-get install libglm-dev -> Biblioteca matemática
+	sudo apt-get install libassimp-dev -> Importar Modelos 3D
+
+	ou:
+		sudo apt-get install libglew-dev libglfw-dev libglm-dev libassimp-dev
+
+	Caso queira um maior controle, use o CMAKE para a utilização de um projeto que
+possui mais detalhes de versão ,controle sobre elas e a possibilidade de usar em
+outros sistemas operacionais, para o meu caso utilizei apenas o Linux para realizar
+os estudos.

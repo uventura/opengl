@@ -1,0 +1,48 @@
+-> Sistema de Coordenadas
+
+    Quando objetos são observados em uma cena antes é feito uma análise de como
+ele será observado em uma cena, para isso ele passa por filtros para que seja 
+determinado como ele será observado, sendo que os filtros são:
+    1° Espaço Local(Local Space or Object Space);
+    2° Espaço Global(World Space);
+    3° Espaço de Visualização(View Space or Eye Space);
+    4° Espaço de Corte(Clip Space);
+    5° Espaço da Tela(Screen Space).
+
+1° Espaço Local: Trata-se de como o objeto está em relação a si mesmo, ou seja, considerando
+um ponto qualquer como seu centro, como os pontos do objeto estão dispostos, esta é a visão 
+local, exemplo, analisando um triângulo e seus pontos, em relação ao seu baricentro qual a
+coordenada de cada um dos mesmos? Esta determinação é a chamada de espaço local.
+    Observação: O espaço local é muito importante, pra casos em que ocorrem por exemplo
+a rotação de um objeto e transformações no corpo, ele irá transformar-se em relação a um
+sistema de coordenadas que não é o mesmo obtido no final. Um caso específico e observado
+no mundo físico é o de um patinador girando, ao girar ele está girando em relação ao seu
+centro de massa, ou seja, para que possamos perceber a rotação de um patinador primeiro
+ele rotaciona em torno de si e depois é que vemos a mudança, portanto não somos o centro
+de referência para a rotação dele, assim é observado o espaço local.
+    O espaço local é onde ocorrem as transformações no próprio objeto, como no caso do
+patinador.
+
+2° Espaço Global: Refere-se a onde o objeto está em relação a todo o espaço, imagine um
+campo de futebol, e imagine que neste campo existe uma bola em um local e um jogador em
+outro, o espaço local neste caso seria, considerando que o campo de futebol é o espaço 
+e considerando a origem em um de seus vértices, qual a localição da bola e do jogador?
+esta é a análise de um espaço local.
+    Observação: Quando um objeto realiza rotação, translação e por ai vai, é necessário
+depois levá-lo para o espaço global.
+    Se o espaço se modifica todos os objetos se modificam, ou seja, caso ocorresse uma 
+rotação no espaço, todos os objetos iriam rotacionar.
+
+3° Espaço de Visualização: Chamado de View Space, para cada observador em um espaço
+qualquer existem observações diferentes, considerando que no mesmo campo de futebol
+exista uma pessoa do gol observando a bola e o jogador, este observará eles
+diferentemente de uma pessoa que o vê de outro local, portanto dada uma posição de
+um observador no espaço como ele irá ver a cena.
+
+4° Espaço de Corte: Um observador não observa o campo por completo somente uma parte
+dele, a função desse conceito é retirar tudo aquilo que não irá ser observado.
+    Observação: Os valores que não serão cortados são aqueles que encontram-se em
+um intervalo de -1.0 a 1.0f.
+
+5° Espaço da Tela: Dado todos os conceitos apresentados acima como ficará a imagem 
+que será observada em uma dela de tamanho determinado.

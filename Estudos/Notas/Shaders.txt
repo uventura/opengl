@@ -1,0 +1,39 @@
+Shaders: Simplesmente diz como meus pixels devem ser renderizados.
+    Existem várias etapas que formam um objeto no OpenGL, existem duas mais importantes 
+que somos nós quem dizemos como irá ocorrer, as fases de fragment shader e vertex shader.
+
+Fragment Shader: Também chamado de pixel shader, o fragment shader é aquele quem diz como
+cada pixel que compõe um objeto irá se comportar, quais fatores serão levados em conta para
+que um pixel possua uma cor, o primeiro exemplo de uso de shader utiliza um fragment shader
+simplesmente para pintar uma cor diretamente, mas não necessariamente somente isso deverá ser
+considerado.
+
+Vertex Shader: Um vértice como dito no texto básico, é um conjunto de informações que descrevem
+os pixels de um objeto que o formam, para descrever um vértice poderá ser obtido informações como
+posição e cor, mas então entra uma dúvida, porque um vértice do meu objeto possui algo como cor?
+    Bom, a ideia está intimamente relacionada ao seu fragment shader, a forma que o OpenGL pinta
+uma forma geométrica leva em consideração a cor de um vértice, já que o mesmo é apenas pixels de 
+suas extremidades de seu objeto. Ao pintar um objeto o OpenGL leva em consideração a cor desses
+outros pixels para então pintar todos os outros que constituem a minha forma, utilizando um método
+conhecido como bilinear.
+    Dito isso, o vertex Shader é apenas aquele que diz como será meu vértice e como serão suas
+características.
+
+Shaders possuem uma linguagem própria pois é uma maneira de facilitar a forma que o objeto será
+renderizado, já que para isso podem ser levado alguns fatores em consideração e um comportamento
+variável, nada melhor do que um algoritmo para tal tarefa. A linguagem dos shaders é chamada de 
+GSL (Graphics Shader Language). Basta ler o primerio código de shader1.cpp para ver isso, após isso
+os seguintes comandos para o acesso de um shader serão utilizados:
+
+    * Este é um código para vertex, nada diferente para um fragment.
+    unsigned int vertex = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertex, 1, &codigo, NULL);
+    glCompileShader(vertex);
+
+    A primeira linha inicia a criação de um shader, e como parâmetro é preciso dizer qual shader 
+está sendo tratado.
+    A segunda irá associar ao shader criado um código, e basicamente é isso que está ocorrendo.
+    A última é para compilar aquele código e torna-lo de fato um código shader de maneira que 
+possa renderizar algo e a GPU possa manipular, sendo que mais tarde irá compor um programa de shader
+que utiliza dos fatores de fragment e vertex.
+    Não necessariamente é obrigatório ter um fragment shader e um vertex shader.

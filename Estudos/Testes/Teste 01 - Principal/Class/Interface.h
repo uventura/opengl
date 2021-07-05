@@ -1,0 +1,7 @@
+class Interface
+{
+public:
+
+private:
+
+};

@@ -1,0 +1,75 @@
+    GLSL(OpenGL Shading Language) é a linguagem utilizada para que possa ser
+possível operar com shaders. Esta linguagem é baseada em C, logo possui certos
+aspectos semelhantes a C como os tipos de variável float, int, uint e bool, não
+somente esses tipos constituem a linguagem, existem também os tipos aplicados
+a matrizes, sendo que o mesmo possui uma limitação da quantidade de elementos
+de 1 a 4. Os tipos para vetores são:
+    vecn : sendo n um valor de 1 a 4, este vetor é formado por floats.
+    bvecn : um vetor de n booleanos.
+    ivecn : um vetor de n inteiros.
+    uvecn : um vetor de n inteiros sem sinal(unsigned int).
+    dvecn : um vetor de n inteiros do tipo double.
+
+    Para acessar cada um dos elementos de um vetor utiliza-se nome_vetor.x para o primeiro
+nome_vetor.y para o segundo, nome_vetor.z para o terceiro e nome_vetor.w para o último.
+* Poderá ser utilizado também a notação de .rgba ou .stpq. Exemplo de como criar um vetor:
+    vec2 teste;
+    vec4 teste2 = teste.xyxx;
+    vec2 teste3 = teste2.xyz;
+
+    Quando foi utilizado xyxx, significa que o vetor teste2 terá em seus parâmetros xyzw as
+seguintes correspondências:
+    teste2.x = teste.x;
+    teste2.y = teste.y;
+    teste2.z = teste.x;
+    teste2.w = teste.x;
+
+    Este é o chamado swizzling, e a forma de notação .xyzw ou xyzz e etc, é uma maneira de
+descrever o seguinte processo:
+    teste2 = vec4(teste.x, teste.y, teste.x, teste.x);
+    
+    Poderia ser:
+    teste2 = vec4(teste.x, teste.y, teste.x, 1.0f);
+
+    Esta é uma forma de tratar a atribuição de valores para vetores.
+
+-> In e Outs 
+    É muito comum encontrar em shaders expressões como 'in vec3 position' ou 'out vec4 color'
+isto no geral representa uma comunicação dos shaders entre si e o programa, pois um shader
+é apenas uma parte de um programa, e para que funcione geralmente precisa de informações do
+mesmo, essas informações podem ser pegas através de buffers, como já mostrado com o 
+glVertexAttribPointer, que basicamente é um comando que nos diz como a memória está estruturada
+para que o próprio shader possa trabalhar com ela, está memória é onde estão contidos dados
+necessários para que ocorra a renderização.
+    O uso de In em um vertex shader simplesmente significa que seu vertex shader está esperando
+valores dados por o seu programa, e então ele os utiliza. Out é justamente a saída, pode ser
+encontrado em fragments shaders, está é uma maneira de dizer que uma variável irá definir
+a saída dos pixels.
+    Não necessariamente in deve ser utilizado em um vertex e out em fragments, poderá ocorrer
+de maneira inversa quando é desejado passar informações entre os shaders utilizados, ou seja,
+se o fragment shader necessita de uma informação do vertex ou o contrário. Para que seja possível
+fazer isso basta no fragment shader definir uma variável como 'in tipo nome_var' e no vertex shader
+definir 'out tipo nome_var', sendo que o tipo e o nome da variável que deseja ser passada os valores
+deve ser o mesmo tanto em fragment quanto em vertex. O que o comando nos diz é que um vertex está
+com uma saída e o fragment com uma entrada, e isso é o que faz com que se conectem.
+
+-> Uniforms
+    Uniforms possuem uma semelhança com os vertex attributes (layout location...),  a primeira
+diferença entre eles é o fato de que Uniforms são globais, qualquer shader pode utilizar-se dos
+valores de um uniform desde que possua definido em seu shader algo como 'uniform tipo nome_do_uniform',
+ou seja, uniforms são apenas variáveis que definidas durante a execução de seu programa. O segundo
+fator de diferença é que uniforms possuem valores que podem mudar e desde que não sejam atualizados
+irão manter o que foi definido, para buscar um uniform que foi definido em um shader e definir
+seus valores os seguintes comandos devem ser utilizados:
+    int var = glGetUniformLocation(shader_utilizando, "nome do uniform definido");
+    glUniform4f(var, v1, v2, v3, v4);
+
+    O primeiro comando é aquele quem busca no shader que está ativado(lembre-se de ativar) o uniform
+definido, caso não encontre irá retornar -1, o segundo é aquele quem define quais serão os valores
+do uniform, no caso apresentado foi definido um uniform do tipo vec4(por isso 4f), mas não
+necessariamente deveria ser assim, outras possíveis substituições para 4f é:
+    f : uniform para um valor float.
+    i : uniform para um valor inteiro.
+    ui : uniform para um valor unsigned int.
+    3f : uniform para um vetor de 3 floats(poderia ser 2, 4).
+    fv : uniform para um vetor de tamanho indefinido.

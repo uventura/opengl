@@ -1,0 +1,26 @@
+/*
+		// Posição da Camera
+		glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+
+		// Posição do Ponto de Foco
+		glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		// Distancia da Camera para o alvo.
+		glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+
+		// Vetor que aponta para cima
+		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+		// Camera Right representa o produto vetorial entre um vetor que aponta para cima
+		// e um vetor que aponta para a direção de foco da câmera, e isso resultará em
+		// um vetor que aponta na direção do que é o eixo positivo de X.
+		// Obs.: é utilizado a regra da mão direita, por isso o nome.
+		glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+
+		// Camera Up trata do vetor Y da câmera, basta fazer o produto vetorial de Z com X.
+		glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+
+		// Look At, descreve o que será observado quando uma câmera possui um alvo e seus vetores.
+		glm::mat4 view;
+		view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
+	*/
